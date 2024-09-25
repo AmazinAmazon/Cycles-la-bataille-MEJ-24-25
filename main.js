@@ -18,10 +18,10 @@ function tirerLaSerie(n) {
 function arrangerCartes(cartes) {
     var cartes1 = []
     var cartes2 = []
-    console.log(cartes, cartes.length)
+    //console.log(cartes, cartes.length)
     for (let i = 0; i < cartes.length; i++) {
         const pOF = pileOuFace()
-        console.log(pOF)
+        //console.log(pOF)
         if (pOF == 0) {
             cartes1.push(cartes[i]);
         } else {
