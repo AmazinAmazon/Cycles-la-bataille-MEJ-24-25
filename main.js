@@ -1,3 +1,5 @@
+var cartes = []
+
 function tirerLaSerie(n) {
     const cartesDuJeu = [];
     const used = new Set();
@@ -37,4 +39,20 @@ function arrangerCartes(cartes) {
 function pileOuFace() {
     const rand = Math.floor(Math.random() * 2);
     return rand;
+}
+
+function jouerCartes() {
+    const player1 = cartes[0];
+    const player2 = cartes[1];
+
+    while (player1.length > 0 && player2.length > 0) {
+        if (player1[0] > player2[0]) { // si la premiere carte du joueur 1 est plus grande que celle du joueur 2
+            player1.push(player1[0], player2[0]); // les cartes sont ajoutées à la fin du paquet du joueur 1
+            player2.shift(); // la premiere carte du joueur 2 est retirée
+        } else if (player1[0] < player2[0]) { // si la premiere carte du joueur 2 est plus grande que celle du joueur 1
+            player2.push(player2[0], player1[0]);
+            player1.shift();
+        }
+    }
+    console.log(player1, player2)
 }
