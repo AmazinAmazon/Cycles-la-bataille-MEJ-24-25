@@ -52,24 +52,32 @@ function jouerCartes() {
 
     const player1 = cartes[0];
     const player2 = cartes[1];
+    const maxTurns = 1000; // Définir un seuil maximum pour le nombre de tours
+    let turnCount = 0; // Initialiser le compteur de tours
 
     while (player1.length > 0 && player2.length > 0) {
+        if (turnCount >= maxTurns) { // Vérifier si le compteur de tours a dépassé le seuil maximum
+            alert("Le jeu a atteint le nombre maximum de tours et a été arrêté pour éviter une boucle infinie.");
+            break;
+        }
+
         if (player1[0] > player2[0]) { // si la premiere carte du joueur 1 est plus grande que celle du joueur 2
             player1.push(player1[0], player2[0]); // les cartes sont ajoutées à la fin du paquet du joueur 1
             player2.shift(); // la premiere carte du joueur 2 est retirée
             player1.shift(); // la premiere carte du joueur 1 est retirée
-            console.log(player1, player2)
+            console.log(player1, player2);
         } else if (player1[0] < player2[0]) { // si la premiere carte du joueur 2 est plus grande que celle du joueur 1
             player2.push(player2[0], player1[0]);
             player1.shift();
             player2.shift();
-            console.log(player1, player2)
-           
+            console.log(player1, player2);
         }
+
+        turnCount++; // Incrémenter le compteur de tours
     }
 
-    document.getElementById("cartesJ1").textContent += " ..->" + cartes[0]
-    document.getElementById("cartesJ2").textContent += " ..->" + cartes[1]
+    document.getElementById("cartesJ1").textContent += " ..->" + cartes[0];
+    document.getElementById("cartesJ2").textContent += " ..->" + cartes[1];
 }
 // Boucles:
 // [5, 2, 3] [3, 4]
