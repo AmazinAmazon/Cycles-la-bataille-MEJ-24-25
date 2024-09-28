@@ -41,6 +41,15 @@ function pileOuFace() {
 }
 
 function jouerCartes() {
+
+    if (cartes.length == 0) {
+        alert("Veuillez d'abord tirer les cartes");
+        return;
+    } else if (cartes[0].length == 0 || cartes[1].length == 0) {
+        alert("Les cartes sont déjà jouées");
+        return;
+    }
+
     const player1 = cartes[0];
     const player2 = cartes[1];
 
@@ -48,17 +57,20 @@ function jouerCartes() {
         if (player1[0] > player2[0]) { // si la premiere carte du joueur 1 est plus grande que celle du joueur 2
             player1.push(player1[0], player2[0]); // les cartes sont ajoutées à la fin du paquet du joueur 1
             player2.shift(); // la premiere carte du joueur 2 est retirée
-            player1.shift(); // la premiere carte du joueur 1 est retirée  
+            player1.shift(); // la premiere carte du joueur 1 est retirée
+            console.log(player1, player2)
         } else if (player1[0] < player2[0]) { // si la premiere carte du joueur 2 est plus grande que celle du joueur 1
             player2.push(player2[0], player1[0]);
             player1.shift();
             player2.shift();
+            console.log(player1, player2)
+           
         }
     }
 
     document.getElementById("cartesJ1").textContent += " ..->" + cartes[0]
     document.getElementById("cartesJ2").textContent += " ..->" + cartes[1]
-
-
-    console.log(player1, player2)
 }
+// Boucles:
+// [5, 2, 3] [3, 4]
+// [1, 4], [5, 2, 3]
