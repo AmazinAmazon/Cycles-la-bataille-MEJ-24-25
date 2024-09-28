@@ -16,7 +16,6 @@ function tirerLaSerie(n) {
     document.getElementById("cartesJ1").textContent = cartes[0]
     document.getElementById("cartesJ2").textContent = cartes[1]
 }
-
 function arrangerCartes(cartes) {
     var cartes1 = []
     var cartes2 = []
@@ -49,10 +48,17 @@ function jouerCartes() {
         if (player1[0] > player2[0]) { // si la premiere carte du joueur 1 est plus grande que celle du joueur 2
             player1.push(player1[0], player2[0]); // les cartes sont ajoutées à la fin du paquet du joueur 1
             player2.shift(); // la premiere carte du joueur 2 est retirée
+            player1.shift(); // la premiere carte du joueur 1 est retirée  
         } else if (player1[0] < player2[0]) { // si la premiere carte du joueur 2 est plus grande que celle du joueur 1
             player2.push(player2[0], player1[0]);
             player1.shift();
+            player2.shift();
         }
     }
+
+    document.getElementById("cartesJ1").textContent += " ..->" + cartes[0]
+    document.getElementById("cartesJ2").textContent += " ..->" + cartes[1]
+
+
     console.log(player1, player2)
 }
