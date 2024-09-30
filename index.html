@@ -10,17 +10,17 @@
     <div class="title text-center">
         <h1 class="title font-monospace p-1">Cycles à la bataille : Matthieu et Jérôme</h1>
     </div>
-    <div class="container-sm bg-info bg-dark mt-2 p-3 rounded-3 ">
+    <div class="container-sm bg-info bg-dark mt-2 p-2 rounded-3 ">
         <div class="input-group">
             <span class="input-group-text">Jeu de cartes N=</span>
             <input type="text" class="form-control">
             <button class="btn btn-outline-warning" type="button" onclick="tirerLaSerie(previousElementSibling.value)">-> Distribuer</button>
         </div>
-        <p id="cartesTXT" class="text-white text-center m-0 mt-2 overflow-auto"></p>
+        <p id="cartesTXT" class="text-white text-center m-0 overflow-auto"></p>
     </div>
 
-    <div class="table mt-2 container-lg">
-        <div class="row text-break g-0 gap-2">
+    <div class="table mt-2 container-sm ">
+        <div class="row text-break gap-1">
             <div class="joueur1 col-md bg-primary bg-gradient rounded-3 px-2 p-1 text-white">
                 Joueur 1:
                 <p id="cartesJ1" class="border border-black border-1 rounded-2"></p>
@@ -30,10 +30,12 @@
                 <p id="cartesJ2" class="border border-black border-1 rounded-2"></p>
             </div>
         </div>
+        <div id="etapes" class="row">
+            
+        </div>
         
         <button class="btn btn-success mt-2" type="button" onclick="jouerCartes()">Jouer</button>
-        <!-- <button class="btn btn-secondary mt-2" type="button" onclick="afficherEtapes()">Afficher les étapes</button> -->
-        
+        <button id="etapesButton" class="btn btn-secondary mt-2 d-none" type="button" onclick="afficherEtapes()">Afficher les étapes</button>
     </div>
 
 
@@ -42,9 +44,9 @@
         body {
             background-image: url(AdobeStock_781489300_Preview.jpeg);
             background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* This makes the image scroll with the screen */
+            background-size: cover; /* pour que l'image de fond soit en plein écran */
+            background-position: center; /* pour centrer l'image de fond */
+            background-attachment: fixed; /* pour bloquer l'image de fond */
             height: 100vh; 
         }
         h1 {
