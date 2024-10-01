@@ -18,13 +18,13 @@ function tirerLaSerie(n) {
     document.getElementById("cartesJ2").textContent = cartes[1]
 }
 function arrangerCartes(cartes) {
-    var cartes1 = []
-    var cartes2 = []
+    let cartes1 = []
+    let cartes2 = []
     //console.log(cartes, cartes.length)
     for (let i = 0; i < cartes.length; i++) {
         const pOF = pileOuFace()
         //console.log(pOF)
-        if (pOF == 0) {
+        if (pOF === 0) {
             cartes1.push(cartes[i]);
         } else {
             cartes2.push(cartes[i]);
@@ -37,8 +37,7 @@ function arrangerCartes(cartes) {
 }
 
 function pileOuFace() {
-    const rand = Math.floor(Math.random() * 2);
-    return rand;
+    return Math.floor(Math.random() * 2);
 }
 
 function jouerCartes() {
@@ -55,12 +54,12 @@ function jouerCartes() {
     const player2 = cartes[1];
     etapes = `[${player1}][${player2}]`;
 
-    const maxTurns = 20000; // Définir un seuil maximum pour le nombre de tours
+    const maxTurns = 100; // Définir un seuil maximum pour le nombre de tours
     let turnCount = 0; // Initialiser le compteur de tours
 
     while (player1.length > 0 && player2.length > 0) {
         if (turnCount >= maxTurns) { // Vérifier si le compteur de tours a dépassé le seuil maximum
-            alert("Le jeu a atteint le nombre maximum de tours et a été arrêté pour éviter une boucle infinie.");
+            return "boucle";
             break;
         }
 
@@ -101,21 +100,44 @@ function afficherEtapes() {
 
 }
 
-function tousLesJeux(n) { // boucle qui tire la serie, joue les cartes et saufgarde les etapes pour verifier que il ne se repete pas
-    const maxTurns = 1000;
-    const allGames = new Set();
+// function tousLesJeux(n) { // boucle qui tire la serie, joue les cartes et saufgarde les etapes pour verifier que il ne se repete pas
+//     const maxTurns = 1000;
+//     const allGames = new Set();
+//     let i = 0;
+//     while (i < maxTurns) {
+//         tirerLaSerie(n);
+//         jouerCartes();
+//         if (etapes.includes("->")) {
+//             if (!allGames.has(etapes)) {
+//                 if (etapes[4] === "]") {
+//                     allGames.add(etapes);
+//                 }
+//             }
+//             i++;
+//         }
+//     }
+//     console.log(allGames);
+// }
+
+function checkBoucles(n) { //n le nombre de cartes dans le jeu
+    const maxCheck = 10000;
     let i = 0;
-    while (i < maxTurns) {
+    let playedSets = new Set();
+    let bouclesDet = [];
+    while (i < maxCheck) {
         tirerLaSerie(n);
-        jouerCartes();
-        if (etapes.includes("->")) {
-            if (!allGames.has(etapes)) {
-                allGames.add(etapes);
+        if (!playedSets.has(JSON.stringify(cartes))) {
+            playedSets.add(JSON.stringify(cartes))
+            let jeu = jouerCartes()
+            if (jeu === "boucle") {
+                bouclesDet.push(etapes);
             }
-            i++;
         }
+        i++
     }
-    console.log(allGames);
+    console.log(`Total iterations: ${i}`);
+    console.log(bouclesDet);
+
 }
 
 // Boucles:
