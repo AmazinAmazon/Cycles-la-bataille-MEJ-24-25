@@ -54,13 +54,12 @@ function jouerCartes() {
     const player2 = cartes[1];
     etapes = `[${player1}][${player2}]`;
 
-    const maxTurns = 100; // Définir un seuil maximum pour le nombre de tours
+    const maxTurns = 10000; // Définir un seuil maximum pour le nombre de tours
     let turnCount = 0; // Initialiser le compteur de tours
 
     while (player1.length > 0 && player2.length > 0) {
         if (turnCount >= maxTurns) { // Vérifier si le compteur de tours a dépassé le seuil maximum
             return "boucle";
-            break;
         }
 
         if (player1[0] > player2[0]) { // si la premiere carte du joueur 1 est plus grande que celle du joueur 2
@@ -84,6 +83,12 @@ function jouerCartes() {
     
     document.getElementById("cartesJ1").textContent += " ..->" + cartes[0];
     document.getElementById("cartesJ2").textContent += " ..->" + cartes[1];
+
+    if (cartes[0].length == 0) {
+        afficherGagneur(2);
+    } else {
+        afficherGagneur(1);
+    }
 }
 
 function afficherEtapes() {
@@ -96,6 +101,20 @@ function afficherEtapes() {
     const div = document.createElement("div");
     div.className = "mt-1 col-md bg-dark bg-gradient rounded-3 px-2 p-1 text-white";
     div.textContent = etapes;
+    etapesDiv.appendChild(div);
+
+}
+
+function afficherGagneur(gagnant) {
+    //check if this has already been done
+    if (document.getElementById("gagneur").childElementCount > 0) {
+        return;
+    }
+    //add a div child to the "étapes" div
+    const etapesDiv = document.getElementById("etapes");
+    const div = document.createElement("div");
+    div.className = "mt-1 col-md bg-success bg-gradient rounded-3 px-2 p-1 text-white font-monospace";
+    div.textContent = `Le joueur ${gagnant} a gagné!`;
     etapesDiv.appendChild(div);
 
 }
@@ -118,7 +137,7 @@ function tousLesJeux(n) { // boucle qui tire la serie, joue les cartes et saufga
 }
 
 function checkBoucles(n) { // n le nombre de cartes dans le jeu
-    const maxCheck = 10000; // Nombre maximum d'itérations pour vérifier les boucles
+    const maxCheck = 1000; // Nombre maximum d'itérations pour vérifier les boucles
     let i = 0; // Compteur d'itérations
     let playedSets = new Set(); // Ensemble pour stocker les configurations de cartes jouées
     let bouclesDet = []; // Tableau pour stocker les étapes des boucles détectées
