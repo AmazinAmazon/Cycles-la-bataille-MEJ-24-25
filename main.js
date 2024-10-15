@@ -40,7 +40,7 @@ function pileOuFace() {
     return Math.floor(Math.random() * 2);
 }
 
-function jouerCartes() {
+function jouerCartes(dev) {
 
     // if (cartes.length == 0) {
     //     alert("Veuillez d'abord tirer les cartes");
@@ -50,6 +50,12 @@ function jouerCartes() {
     //     return;
     // }
 
+
+    if (dev === undefined) {
+        dev = false;
+        
+    }
+
     const player1 = cartes[0];
     const player2 = cartes[1];
     etapes = `[${player1}][${player2}]`;
@@ -57,8 +63,9 @@ function jouerCartes() {
     const maxTurns = 10000; // Définir un seuil maximum pour le nombre de tours
     let turnCount = 0; // Initialiser le compteur de tours
 
-    while (player1.length > 0 && player2.length > 0) {
+    while (player1.length != 0 && player2.length != 0) {
         if (turnCount >= maxTurns) { // Vérifier si le compteur de tours a dépassé le seuil maximum
+            console.log("Boucle détectée"); // Afficher un message indiquant qu'une boucle a été détectée
             return "boucle";
         }
 
@@ -78,17 +85,27 @@ function jouerCartes() {
         turnCount++; // Incrémenter le compteur de tours
     }
 
-    //console.log(etapes)
-    document.getElementById("etapesButton").classList.remove("d-none");
-    
-    document.getElementById("cartesJ1").textContent += " ..->" + cartes[0];
-    document.getElementById("cartesJ2").textContent += " ..->" + cartes[1];
+    if (dev === false) {
+        //console.log(etapes)
+        document.getElementById("etapesButton").classList.remove("d-none");
+        
+        document.getElementById("cartesJ1").textContent += " ..->" + cartes[0];
+        document.getElementById("cartesJ2").textContent += " ..->" + cartes[1];
 
-    if (cartes[0].length == 0) {
-        afficherGagneur(2);
-    } else {
-        afficherGagneur(1);
+        //delete the div called divGagneur
+        
+        const divGagneur = document.getElementById("divGagneur");
+        if (divGagneur) {-
+            divGagneur.remove();
+        }
+
+        if (cartes[0].length == 0) {
+            afficherGagneur(2);
+        } else {
+            afficherGagneur(1);
+        }
     }
+    
 }
 
 function afficherEtapes() {
@@ -113,6 +130,7 @@ function afficherGagneur(gagnant) {
     //add a div child to the "étapes" div
     const etapesDiv = document.getElementById("etapes");
     const div = document.createElement("div");
+    div.id = "divGagneur";
     div.className = "mt-1 col-md bg-success bg-gradient rounded-3 px-2 p-1 text-white font-monospace";
     div.textContent = `Le joueur ${gagnant} a gagné!`;
     etapesDiv.appendChild(div);
@@ -125,7 +143,7 @@ function tousLesJeux(n) { // boucle qui tire la serie, joue les cartes et saufga
     let i = 0;
     while (i < maxTurns) {
         tirerLaSerie(n);
-        jouerCartes();
+        jouerCartes(true);
         if (etapes.includes("->")) {
             if (!allGames.has(etapes)) {
                     allGames.add(etapes);
