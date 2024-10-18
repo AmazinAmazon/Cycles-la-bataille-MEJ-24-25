@@ -17,6 +17,15 @@ function tirerLaSerie(n) {
     document.getElementById("cartesJ1").textContent = cartes[0]
     document.getElementById("cartesJ2").textContent = cartes[1]
 }
+
+/**
+ * ## Fonction pour tirer les cartes
+ * ### Paramètres
+ * - cartes: nombre de cartes à tirer
+ * ### Retourne
+ * - Une liste composé de deux listes, chaqune contenant les cartes d'un joueur
+ */
+
 function arrangerCartes(cartes) {
     let cartes1 = []
     let cartes2 = []
@@ -33,6 +42,12 @@ function arrangerCartes(cartes) {
 
     const cartesTXT = document.getElementById("cartesTXT");
     cartesTXT.textContent = `Cartes1: [${cartes1}], Cartes2: [${cartes2}]`
+
+    const divGagneur = document.getElementById("divGagneur");
+    if (divGagneur) {
+        divGagneur.remove();
+    }
+
     return [cartes1, cartes2];
 }
 
@@ -40,20 +55,17 @@ function pileOuFace() {
     return Math.floor(Math.random() * 2);
 }
 
-function jouerCartes(dev) {
+function jouerCartes(dev = false) {
 
-    // if (cartes.length == 0) {
-    //     alert("Veuillez d'abord tirer les cartes");
-    //     return;
-    // } else if (cartes[0].length == 0 || cartes[1].length == 0) {
-    //     alert("Les cartes sont déjà jouées");
-    //     return;
-    // }
+    if (!dev) {
+        if (cartes.length == 0) {
+            alert("Veuillez d'abord tirer les cartes");
+            return;
+        } else if (cartes[0].length == 0 || cartes[1].length == 0) {
+            alert("Les cartes sont déjà jouées");
+            return;
+        }
 
-
-    if (dev === undefined) {
-        dev = false;
-        
     }
 
     const player1 = cartes[0];
@@ -65,7 +77,7 @@ function jouerCartes(dev) {
 
     while (player1.length != 0 && player2.length != 0) {
         if (turnCount >= maxTurns) { // Vérifier si le compteur de tours a dépassé le seuil maximum
-            console.log("Boucle détectée"); // Afficher un message indiquant qu'une boucle a été détectée
+            console.log("Boucle détectée,", etapes); // Afficher un message indiquant qu'une boucle a été détectée
             return "boucle";
         }
 
@@ -86,18 +98,11 @@ function jouerCartes(dev) {
     }
 
     if (dev === false) {
-        //console.log(etapes)
         document.getElementById("etapesButton").classList.remove("d-none");
         
         document.getElementById("cartesJ1").textContent += " ..->" + cartes[0];
         document.getElementById("cartesJ2").textContent += " ..->" + cartes[1];
 
-        //delete the div called divGagneur
-        
-        const divGagneur = document.getElementById("divGagneur");
-        if (divGagneur) {-
-            divGagneur.remove();
-        }
 
         if (cartes[0].length == 0) {
             afficherGagneur(2);
@@ -128,7 +133,7 @@ function afficherGagneur(gagnant) {
         return;
     }
     //add a div child to the "étapes" div
-    const etapesDiv = document.getElementById("etapes");
+    const etapesDiv = document.getElementById("gagneur");
     const div = document.createElement("div");
     div.id = "divGagneur";
     div.className = "mt-1 col-md bg-success bg-gradient rounded-3 px-2 p-1 text-white font-monospace";
@@ -140,18 +145,25 @@ function afficherGagneur(gagnant) {
 function tousLesJeux(n) { // boucle qui tire la serie, joue les cartes et saufgarde les etapes pour verifier que il ne se repete pas
     const maxTurns = 100000;
     const allGames = new Set();
+    let winj1 = 0;
+    let winj2 = 0;
     let i = 0;
     while (i < maxTurns) {
         tirerLaSerie(n);
         jouerCartes(true);
         if (etapes.includes("->")) {
             if (!allGames.has(etapes)) {
-                    allGames.add(etapes);
+                allGames.add(etapes);
+                if (etapes.slice(-2)[0] === "[") {
+                    winj1++;
+                } else {
+                    winj2++;
+                }
             }
             i++;
         }
     }
-    console.log(allGames);
+    console.log(allGames, winj1, winj2);
 }
 
 function checkBoucles(n) { // n le nombre de cartes dans le jeu
@@ -180,4 +192,3 @@ function checkBoucles(n) { // n le nombre de cartes dans le jeu
 // [5, 2, 3] [3, 4]
 // [1, 4], [5, 2, 3]
 
-// écrire code pour voir combien de fois le joueur 1/2 gagne dans tous les jeux
