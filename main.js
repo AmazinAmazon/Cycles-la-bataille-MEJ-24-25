@@ -47,6 +47,10 @@ function arrangerCartes(cartes) {
     if (divGagneur) {
         divGagneur.remove();
     }
+    const etapesDiv = document.getElementById("divEtapes");
+    if (etapesDiv) {
+        etapesDiv.remove();
+    }
 
     return [cartes1, cartes2];
 }
@@ -121,6 +125,8 @@ function afficherEtapes() {
     //add a div child to the "étapes" div
     const etapesDiv = document.getElementById("etapes");
     const div = document.createElement("div");
+    div.id = "divEtapes";
+
     div.className = "mt-1 col-md bg-dark bg-gradient rounded-3 px-2 p-1 text-white";
     div.textContent = etapes;
     etapesDiv.appendChild(div);
