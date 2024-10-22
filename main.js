@@ -81,7 +81,7 @@ function jouerCartes(dev = false) {
 
     while (player1.length != 0 && player2.length != 0) {
         if (turnCount >= maxTurns) { // Vérifier si le compteur de tours a dépassé le seuil maximum
-            console.log("Boucle détectée,", etapes); // Afficher un message indiquant qu'une boucle a été détectée
+            console.log("Boucle détectée"); // Afficher un message indiquant qu'une boucle a été détectée
             return "boucle";
         }
 
@@ -149,7 +149,7 @@ function afficherGagneur(gagnant) {
 }
 
 function tousLesJeux(n) { // boucle qui tire la serie, joue les cartes et saufgarde les etapes pour verifier que il ne se repete pas
-    const maxTurns = 100000;
+    const maxTurns = 5000;
     const allGames = new Set();
     let winj1 = 0;
     let winj2 = 0;
@@ -182,7 +182,7 @@ function checkBoucles(n) { // n le nombre de cartes dans le jeu
         tirerLaSerie(n); // Tirer une nouvelle série de cartes
         if (!playedSets.has(JSON.stringify(cartes))) { // Vérifier si la configuration actuelle des cartes n'a pas été jouée
             playedSets.add(JSON.stringify(cartes)); // Ajouter la configuration actuelle des cartes à l'ensemble
-            let jeu = jouerCartes(); // Jouer les cartes et vérifier si une boucle est détectée
+            let jeu = jouerCartes(true); // Jouer les cartes et vérifier si une boucle est détectée
             if (jeu === "boucle") { // Si une boucle est détectée
                 bouclesDet.push(etapes); // Ajouter les étapes de la boucle détectée au tableau
             }
