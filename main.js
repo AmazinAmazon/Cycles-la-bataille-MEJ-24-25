@@ -173,7 +173,7 @@ function tousLesJeux(n) { // boucle qui tire la serie, joue les cartes et saufga
 }
 
 function checkBoucles(n) { // n le nombre de cartes dans le jeu
-    const maxCheck = 200000; // Nombre maximum d'itérations pour vérifier les boucles
+    const maxCheck = 20000; // Nombre maximum d'itérations pour vérifier les boucles
     let i = 0; // Compteur d'itérations
     let playedSets = new Set(); // Ensemble pour stocker les configurations de cartes jouées
     let bouclesDet = []; // Tableau pour stocker les étapes des boucles détectées
