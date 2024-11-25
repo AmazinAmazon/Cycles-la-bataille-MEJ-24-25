@@ -81,7 +81,7 @@ function jouerCartes(dev = false) {
 
     while (player1.length != 0 && player2.length != 0) {
         if (turnCount >= maxTurns) { // Vérifier si le compteur de tours a dépassé le seuil maximum
-            console.log("Boucle détectée"); // Afficher un message indiquant qu'une boucle a été détectée
+            if (dev == false) console.log("Boucle détectée"); // Afficher un message indiquant qu'une boucle a été détectée
             return "boucle";
         }
 
@@ -148,12 +148,12 @@ function afficherGagneur(gagnant) {
 
 }
 
-function tousLesJeux(n) { // boucle qui tire la serie, joue les cartes et saufgarde les etapes pour verifier que il ne se repete pas
-    const maxTurns = 5000;
+function tousLesJeux(n, maxTurns = 5000) { // boucle qui tire la serie, joue les cartes et saufgarde les etapes pour verifier que il ne se repete pas
     const allGames = new Set();
     let winj1 = 0;
     let winj2 = 0;
     let i = 0;
+    let skipped = 0;
     while (i < maxTurns) {
         tirerLaSerie(n);
         jouerCartes(true);
@@ -165,18 +165,21 @@ function tousLesJeux(n) { // boucle qui tire la serie, joue les cartes et saufga
                 } else {
                     winj2++;
                 }
+            } else {
+                skipped++;
             }
             i++;
         }
     }
-    console.log(allGames, winj1, winj2);
+    console.log(`Total checked: ${i}, total skipped: ${skipped}. Joueur 1 gagne ${winj1} fois, joueur 2 gagne ${winj2} fois`); // Afficher le nombre total d'itérations
+    console.log(allGames);
 }
 
-function checkBoucles(n) { // n le nombre de cartes dans le jeu
-    const maxCheck = 20000; // Nombre maximum d'itérations pour vérifier les boucles
+function checkBoucles(n, maxCheck = 50, showAll = false) { // n le nombre de cartes dans le jeu, maxCheck le nombre maximum d'itérations pour vérifier les boucles
     let i = 0; // Compteur d'itérations
     let playedSets = new Set(); // Ensemble pour stocker les configurations de cartes jouées
     let bouclesDet = []; // Tableau pour stocker les étapes des boucles détectées
+    let skipped = 0;
 
     while (i < maxCheck) { // Boucle jusqu'à atteindre le nombre maximum d'itérations
         tirerLaSerie(n); // Tirer une nouvelle série de cartes
@@ -186,12 +189,16 @@ function checkBoucles(n) { // n le nombre de cartes dans le jeu
             if (jeu === "boucle") { // Si une boucle est détectée
                 bouclesDet.push(etapes); // Ajouter les étapes de la boucle détectée au tableau
             } 
+        } else {
+            skipped++;
         }
         i++; // Incrémenter le compteur d'itérations
+
     }
 
-    console.log(`Total iterations: ${i}`); // Afficher le nombre total d'itérations
+    console.log(`Total checked: ${i}, total skipped: ${skipped}, boucles: ${bouclesDet.length}`); // Afficher le nombre total d'itérations
     console.log(bouclesDet); // Afficher les boucles détectées
+    if (showAll) console.log(playedSets); // Afficher toutes les configurations de cartes jouées
 }
  
 // Boucles:
