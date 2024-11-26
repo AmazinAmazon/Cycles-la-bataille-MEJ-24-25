@@ -2,6 +2,12 @@ var cartes = []
 var etapes = ""
 
 function tirerLaSerie(n) {
+
+    const errDiv = document.getElementById("divErreur");
+    if (errDiv) {
+        errDiv.remove();
+    }
+    
     const cartesDuJeu = [];
     const used = new Set();
 
@@ -70,6 +76,19 @@ function jouerCartes(dev = false) {
             return;
         }
 
+        const divGagneur = document.getElementById("divGagneur");
+        if (divGagneur) {
+            divGagneur.remove();
+        }
+        const etapesDiv = document.getElementById("divEtapes");
+        if (etapesDiv) {
+            etapesDiv.remove();
+        }
+        const errDiv = document.getElementById("divErreur");
+        if (errDiv) {
+            errDiv.remove();
+        }
+
     }
 
     const player1 = cartes[0];
@@ -81,7 +100,20 @@ function jouerCartes(dev = false) {
 
     while (player1.length != 0 && player2.length != 0) {
         if (turnCount >= maxTurns) { // Vérifier si le compteur de tours a dépassé le seuil maximum
-            if (dev == false) console.log("Boucle détectée"); // Afficher un message indiquant qu'une boucle a été détectée
+            if (dev == false) {
+                console.log("Boucle détectée"); // Afficher un message indiquant qu'une boucle a été détectée
+            
+                if (document.getElementById("gagneur").childElementCount > 0) {
+                    return;
+                }
+                const etapesDiv = document.getElementById("gagneur");
+                const div = document.createElement("div");
+                div.id = "divErreur";
+                div.className = "mt-1 col-md bg-danger bg-gradient rounded-3 px-2 p-1 text-white font-monospace";
+                div.textContent = "Une boucle a été détectée";
+                etapesDiv.appendChild(div);
+            
+            } 
             return "boucle";
         }
 
