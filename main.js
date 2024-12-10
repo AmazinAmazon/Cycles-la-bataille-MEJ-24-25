@@ -95,7 +95,7 @@ function jouerCartes(dev = false) {
     const player2 = cartes[1];
     etapes = `[${player1}][${player2}]`;
 
-    const maxTurns = 10000; // Définir un seuil maximum pour le nombre de tours
+    const maxTurns = 1000; // Définir un seuil maximum pour le nombre de tours
     let turnCount = 0; // Initialiser le compteur de tours
 
     while (player1.length != 0 && player2.length != 0) {
@@ -207,7 +207,7 @@ function tousLesJeux(n, maxTurns = 5000) { // boucle qui tire la serie, joue les
     console.log(allGames);
 }
 
-function checkBoucles(n, maxCheck = 50, showAll = false) { // n le nombre de cartes dans le jeu, maxCheck le nombre maximum d'itérations pour vérifier les boucles
+function checkBoucles(n, maxCheck = 50, showLogs = false) { // n le nombre de cartes dans le jeu, maxCheck le nombre maximum d'itérations pour vérifier les boucles et showAll pour afficher toutes les configurations de cartes jouées
     let i = 0; // Compteur d'itérations
     let playedSets = new Set(); // Ensemble pour stocker les configurations de cartes jouées
     let bouclesDet = []; // Tableau pour stocker les étapes des boucles détectées
@@ -229,10 +229,11 @@ function checkBoucles(n, maxCheck = 50, showAll = false) { // n le nombre de car
     }
 
     console.log(`Total checked: ${i}, total skipped: ${skipped}, boucles: ${bouclesDet.length}`); // Afficher le nombre total d'itérations
-    console.log(bouclesDet); // Afficher les boucles détectées
-    if (showAll) console.log(playedSets); // Afficher toutes les configurations de cartes jouées
+    if (showLogs) {
+        console.log(bouclesDet, playedSets); // Afficher toutes les configurations de cartes jouées
+    }
+    //if (showLogs) console.log(playedSets); // Afficher toutes les configurations de cartes jouées
 }
- 
 // Boucles:
 // [5, 2, 3] [3, 4]
 // [1, 4], [5, 2, 3]
