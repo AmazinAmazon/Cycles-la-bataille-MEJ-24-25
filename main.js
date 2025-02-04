@@ -207,19 +207,25 @@ function tousLesJeux(n, maxTurns = 5000) { // boucle qui tire la serie, joue les
     console.log(allGames);
 }
 
-function checkBoucles(n, maxCheck = 50, showLogs = false) { // n le nombre de cartes dans le jeu, maxCheck le nombre maximum d'itérations pour vérifier les boucles et showAll pour afficher toutes les configurations de cartes jouées
-    let i = 0; // Compteur d'itérations
-    let playedSets = new Set(); // Ensemble pour stocker les configurations de cartes jouées
-    let bouclesDet = []; // Tableau pour stocker les étapes des boucles détectées
+
+// Décris la fonction
+// n: nombre de cartes dans le jeu
+// maxCheck: nombre maximum d'itérations pour vérifier les boucles
+// showBoucles: afficher toutes les configurations de cartes jouées
+// Retourne: les configurations de cartes jouées et les étapes des boucles détectées
+function checkBoucles(n, maxCheck = 50, showBoucles = false) {
+    let i = 0;
+    let playedSets = new Set();
+    let bouclesDet = []; 
     let skipped = 0;
 
     while (i < maxCheck) { // Boucle jusqu'à atteindre le nombre maximum d'itérations
-        tirerLaSerie(n); // Tirer une nouvelle série de cartes
-        if (!playedSets.has(JSON.stringify(cartes))) { // Vérifier si la configuration actuelle des cartes n'a pas été jouée
-            playedSets.add(JSON.stringify(cartes)); // Ajouter la configuration actuelle des cartes à l'ensemble
-            let jeu = jouerCartes(true); // Jouer les cartes et vérifier si une boucle est détectée
-            if (jeu === "boucle") { // Si une boucle est détectée
-                bouclesDet.push(etapes); // Ajouter les étapes de la boucle détectée au tableau
+        tirerLaSerie(n);
+        if (!playedSets.has(JSON.stringify(cartes))) { 
+            playedSets.add(JSON.stringify(cartes)); 
+            let jeu = jouerCartes(true); 
+            if (jeu === "boucle") { 
+                bouclesDet.push(etapes); 
             } 
         } else {
             skipped++;
@@ -229,8 +235,8 @@ function checkBoucles(n, maxCheck = 50, showLogs = false) { // n le nombre de ca
     }
 
     console.log(`Total checked: ${i}, total skipped: ${skipped}, boucles: ${bouclesDet.length}`); // Afficher le nombre total d'itérations
-    if (showLogs) {
-        console.log(bouclesDet, playedSets); // Afficher toutes les configurations de cartes jouées
+    if (showBoucles) {
+        console.log(bouclesDet); // Afficher toutes les configurations de cartes jouées
     }
     //if (showLogs) console.log(playedSets); // Afficher toutes les configurations de cartes jouées
 }
@@ -238,3 +244,40 @@ function checkBoucles(n, maxCheck = 50, showLogs = false) { // n le nombre de ca
 // [5, 2, 3] [3, 4]
 // [1, 4], [5, 2, 3]
 
+function parseTransitions(input) {
+    // Split the input string on "->", allowing for extra whitespace.
+    return input.split(/\s*->\s*/);
+
+}
+  
+function premierePeriodeCheck(input) {
+  const boucleArray = parseTransitions(input);
+  const boucleDict = {};
+  firstOccurenceRep = false;
+
+  boucleArray.forEach((boucle) => {
+    const boucleTrimmed = boucle.trim();
+    if (boucleDict.hasOwnProperty(boucleTrimmed)) {
+      boucleDict[boucleTrimmed] += 1;
+      if (firstOccurenceRep === false) {
+        console.log(`${boucleTrimmed} est le début de la période répétée.`);
+        firstOccurenceRep = true;
+      }
+    } else {
+      boucleDict[boucleTrimmed] = 1;
+    }
+  });
+
+  for (const key in boucleDict) {
+    console.log(`Jeu ${key} apparaît ${boucleDict[key]} fois.`);
+  }
+
+  //return boucleDict;
+}
+
+// let input = "[3,5][4,1,2] -> [5][1,2,4,3] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1] -> [5,3][1,4,2] -> [3,5,1][4,2] -> [5,1][2,4,3] -> [1,5,2][4,3] -> [5,2][3,4,1] -> [2,5,3][4,1]";
+  
+//   // Build the dictionary and check for recurring terms.
+// let boucleDictionary = boucleArrayCount(input);
+// console.log(boucleDictionary);
+  
