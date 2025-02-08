@@ -47,7 +47,7 @@ function arrangerCartes(cartes) {
     }
 
     const cartesTXT = document.getElementById("cartesTXT");
-    cartesTXT.textContent = `Cartes1: [${cartes1}], Cartes2: [${cartes2}]`
+    cartesTXT.textContent = `Joueur 1: [${cartes1}], Joueur 2: [${cartes2}]`
 
     const divGagneur = document.getElementById("divGagneur");
     if (divGagneur) {

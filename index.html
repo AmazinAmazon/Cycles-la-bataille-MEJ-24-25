@@ -8,20 +8,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="title text-center">
+    <!-- Title div -->
+    <div class="title text-center px-1">
         <h1 class="title font-monospace p-1">Cycles à la bataille : Matthieu et Jérôme</h1>
     </div>
-    <div class="container-sm bg-info bg-dark mt-2 p-2 rounded-3 ">
-        <div class="input-group">
-            <span class="input-group-text">Jeu de cartes N=</span>
-            <input type="text" class="form-control">
-            <button class="btn btn-outline-warning" type="button" onclick="tirerLaSerie(this.previousElementSibling.value)">-> Distribuer</button>
+
+    <!-- Input div -->
+    <div class="container mt-2">
+        <div class="bg-black rounded-3 p-2">
+            <div class="input-group">
+                <span class="input-group-text">Jeu de cartes N=</span>
+                <input type="text" class="form-control">
+                <button class="btn btn-outline-warning" type="button" onclick="tirerLaSerie(this.previousElementSibling.value)">-> Distribuer</button>
+            </div>
+            <p id="cartesTXT" class="text-white text-center m-0 overflow-auto"></p>
         </div>
-        <p id="cartesTXT" class="text-white text-center m-0 overflow-auto"></p>
+        
     </div>
 
-    <div class="table mt-2 container-sm ">
-        <div class="row text-break gap-1">
+    <!-- Game div -->
+    <div class="container table mt-2">
+        <div class="row text-break gap-1 mx-auto">
             <div class="joueur1 col-md bg-primary bg-gradient rounded-3 px-2 p-1 text-white">
                 Joueur 1:
                 <p id="cartesJ1" class="border border-black border-1 rounded-2"></p>
@@ -31,13 +38,24 @@
                 <p id="cartesJ2" class="border border-black border-1 rounded-2"></p>
             </div>
         </div>
-        <div id="etapes" class="row " style="word-break: auto-phrase;">
+        <div id="etapes" class="row mx-auto" style="word-break: auto-phrase;">
         </div>
-        <div id="gagneur" class="row ">
+        <div id="gagneur" class="row mx-auto">
+        </div>
+
+        <div class="buttons d-flex justify-content-center gap-1">
+            
+            <button class="btn btn-primary mt-2 px-5" type="button" onclick="jouerCartes()">Jouer</button>
+            <button id="etapesButton" class="btn btn-secondary mt-2 d-none" type="button" onclick="afficherEtapes()">Afficher les étapes</button>
         </div>
         
-        <button class="btn btn-primary mt-2" type="button" onclick="jouerCartes()">Jouer</button>
-        <button id="etapesButton" class="btn btn-secondary mt-2 d-none" type="button" onclick="afficherEtapes()">Afficher les étapes</button>
+    </div>
+
+    <!-- Info div -->
+    <div class="container infos">
+        <div class="bg-dark bg-gradient p-2 rounded-3 text-white">
+            <p class="txt px-1" style="text-align: justify;">Cycles à la bataille est un jeu de cartes pour deux joueurs. Chaque joueur reçoit la moitié du jeu de cartes. Les joueurs jouent une carte à la fois. Le joueur avec la carte la plus élevée gagne la manche. Le jeu se termine lorsque un des deux joueurs se retrouve sans aucune carte. Le joueur sans cartes a donc perdu.</p>
+        </div>
     </div>
 
     <script src="main.js"></script>
