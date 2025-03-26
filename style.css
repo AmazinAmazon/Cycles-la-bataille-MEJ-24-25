@@ -5,6 +5,7 @@ body {
     background-position: center; /* pour centrer l'image de fond */
     background-attachment: fixed; /* pour bloquer l'image de fond */
     height: 100vh;
+    overflow: auto;
 }
 h1 {
     color: white;
