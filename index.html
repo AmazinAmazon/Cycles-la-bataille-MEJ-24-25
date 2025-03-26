@@ -8,20 +8,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Title div-->
     <div class="title text-center">
         <h1 class="title font-monospace p-1">Cycles à la bataille : Matthieu et Jérôme</h1>
     </div>
-    <div class="container-sm bg-info bg-dark mt-2 p-2 rounded-3 ">
-        <div class="input-group">
-            <span class="input-group-text">Jeu de cartes N=</span>
-            <input type="text" class="form-control">
-            <button class="btn btn-outline-warning" type="button" onclick="tirerLaSerie(this.previousElementSibling.value)">-> Distribuer</button>
+    <!-- Input div -->
+    <div class="container mt-2">
+        <div class="bg-black rounded-3 p-2">
+            <div class="input-group">
+                <span class="input-group-text">Jeu de cartes N=</span>
+                <input type="text" class="form-control">
+                <button class="btn btn-outline-warning" type="button" onclick="tirerLaSerie(this.previousElementSibling.value)">-&gt; Distribuer</button>
+            </div>
+            <p id="cartesTXT" class="text-white text-center m-0 overflow-auto"></p>
         </div>
-        <p id="cartesTXT" class="text-white text-center m-0 overflow-auto"></p>
     </div>
-
-    <div class="table mt-2 container-sm ">
-        <div class="row text-break gap-1">
+    <!-- Game div -->
+    <div class="table mt-2 container">
+        <div class="row text-break gap-1 mx-auto">
             <div class="joueur1 col-md bg-primary bg-gradient rounded-3 px-2 p-1 text-white">
                 Joueur 1:
                 <p id="cartesJ1" class="border border-black border-1 rounded-2"></p>
@@ -31,14 +35,22 @@
                 <p id="cartesJ2" class="border border-black border-1 rounded-2"></p>
             </div>
         </div>
-        <div id="etapes" class="row " style="word-break: auto-phrase;">
+        <div id="etapes" class="row mx-auto" style="word-break: auto-phrase;">
         </div>
-        <div id="gagneur" class="row ">
+        <div id="gagneur" class="row mx-auto">
         </div>
         
-        <button class="btn btn-primary mt-2" type="button" onclick="jouerCartes()">Jouer</button>
-        <button id="etapesButton" class="btn btn-secondary mt-2 d-none" type="button" onclick="afficherEtapes()">Afficher les étapes</button>
+        <div class="buttons d-flex justify-content-center gap-1">
+            <button class="btn btn-primary mt-2 px-5" type="button" onclick="jouerCartes()">Jouer</button>
+            <button id="etapesButton" class="btn btn-secondary mt-2 d-none" type="button" onclick="afficherEtapes()">Afficher les étapes</button>
+        </div>
     </div>
+    <!-- Info div -->
+     <div class="container infos">
+        <div class="bg-dark bg-gradient p-1 rounded-3 text-white" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            <p class="txt px-1 m-0" style="text-align: justify;">Imaginez un jeu avec <b>N</b> cartes numérotées. Pour commencer, on distribue ces cartes au hasard entre deux joueurs, un peu comme en tirant à pile ou face pour chaque carte, en s'assurant que chaque joueur reçoive au moins une carte, même s'ils n'en ont pas le même nombre. Ensuite, chaque joueur pose son paquet face cachée. À chaque tour, les deux joueurs retournent simultanément la carte du dessus de leur paquet. Celui qui a la carte la plus forte remporte le tour et récupère les deux cartes : il place d'abord sa carte gagnante juste avant la fin de son propre paquet, puis la carte perdante tout à la fin. Le jeu continue ainsi, tour après tour, jusqu'à ce qu'un des joueurs n'ait plus aucune carte ; ce joueur a alors perdu la partie. Cependant, il faut savoir que certaines configurations de départ peuvent mener à des parties infinies ! Par exemple, avec (N=7) cartes, si le Joueur 1 commence avec les cartes [7, 4, 6, 3] (le 7 étant sur le dessus) et le Joueur 2 avec [1, 5, 2], la partie ne se terminera jamais. En effet, après exactement 8 tours (soit (N+1)), les joueurs se retrouveront exactement dans la même situation qu'au départ, avec les mêmes cartes dans le même ordre, créant une boucle sans fin.</p>
+        </div>
+     </div>
 
     <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
