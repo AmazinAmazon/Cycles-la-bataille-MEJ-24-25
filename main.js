@@ -216,7 +216,6 @@ function tousLesJeux(n, maxTurns = 5000) { // boucle qui tire la serie, joue les
 }
 
 /**
- * Décris la fonction
  * n: nombre de cartes dans le jeu
  * maxCheck: nombre maximum d'itérations pour vérifier les boucles
  * showBoucles: afficher toutes les configurations de cartes jouées
