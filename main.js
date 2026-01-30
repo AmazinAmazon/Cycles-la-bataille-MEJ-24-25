@@ -27,9 +27,9 @@ function tirerLaSerie(n) {
 /**
  * ## Fonction pour arranger les cartes
  * ### Paramètres
- * - cartes: nombre de cartes à tirer
+ * - cartes: les cartes à arranger
  * ### Retourne
- * - Une liste composé de deux listes, chacune contenant les cartes d'un joueur
+ * - Une liste composée de deux listes, chacune contenant les cartes d'un joueur
  */
 
 function arrangerCartes(cartes) {
@@ -174,7 +174,7 @@ function afficherGagneur(gagnant) {
     if (document.getElementById("gagneur").childElementCount > 0) {
         return;
     }
-    //ajouter un div enfant au div "étapes"
+    //ajouter un div enfant au div "gagneur"
     const etapesDiv = document.getElementById("gagneur");
     const div = document.createElement("div");
     div.id = "divGagneur";
@@ -186,8 +186,7 @@ function afficherGagneur(gagnant) {
 
 /**
  * Enregistre tous les différents jeux possibles
- * qui peuvent être joués avec n nombre
- * de cartes
+ * qui peuvent être joués avec n cartes
  */
 function tousLesJeux(n, maxTurns = 5000) { // boucle qui tire la serie, joue les cartes et saufgarde les etapes pour verifier que il ne se repete pas
     const allGames = new Set();
@@ -299,8 +298,8 @@ function premierePeriodeCheck(input, dev = false) {
 }
 
 /**
- * Pour un N donné, vérifie maxCheck
- * nombre de séries jouées et enregistre la
+ * Pour un N donné, vérifie un nombre maxCheck
+ * de séries jouées et enregistre la
  * première période répétée dans chacune.
  */
 function periodesCheckN(N, maxCheck = 5) {
