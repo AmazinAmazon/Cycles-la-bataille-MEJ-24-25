@@ -25,11 +25,11 @@ function tirerLaSerie(n) {
 }
 
 /**
- * ## Fonction pour tirer les cartes
+ * ## Fonction pour arranger les cartes
  * ### Paramètres
- * - cartes: nombre de cartes à tirer
+ * - cartes: les cartes à arranger
  * ### Retourne
- * - Une liste composé de deux listes, chaqune contenant les cartes d'un joueur
+ * - Une liste composée de deux listes, chacune contenant les cartes d'un joueur
  */
 
 function arrangerCartes(cartes) {
@@ -66,8 +66,8 @@ function pileOuFace() {
 }
 
 /**
- * Plays the set with the cards
- * defoned in the cartes variable
+ * Joue les cartes définies
+ * dans la variable cartes
  */
 function jouerCartes(dev = false) {
 
@@ -154,11 +154,11 @@ function jouerCartes(dev = false) {
 }
 
 function afficherEtapes() {
-    //check if this has already been done
+    //vérifie si cela a déjà été fait
     if (document.getElementById("etapes").childElementCount > 0) {
         return;
     }
-    //add a div child to the "étapes" div
+    //ajouter un div enfant au div "étapes"
     const etapesDiv = document.getElementById("etapes");
     const div = document.createElement("div");
     div.id = "divEtapes";
@@ -170,11 +170,11 @@ function afficherEtapes() {
 }
 
 function afficherGagneur(gagnant) {
-    //check if this has already been done
+    //vérifie si cela a déjà été fait
     if (document.getElementById("gagneur").childElementCount > 0) {
         return;
     }
-    //add a div child to the "étapes" div
+    //ajouter un div enfant au div "gagneur"
     const etapesDiv = document.getElementById("gagneur");
     const div = document.createElement("div");
     div.id = "divGagneur";
@@ -185,9 +185,8 @@ function afficherGagneur(gagnant) {
 }
 
 /**
- * Logs all of the different possible
- * games that can be played with n number
- * of cards
+ * Enregistre tous les différents jeux possibles
+ * qui peuvent être joués avec n cartes
  */
 function tousLesJeux(n, maxTurns = 5000) { // boucle qui tire la serie, joue les cartes et saufgarde les etapes pour verifier que il ne se repete pas
     const allGames = new Set();
@@ -252,14 +251,14 @@ function checkBoucles(n, maxCheck = 50, showBoucles = false) {
 }
 
 function parseTransitions(input) {
-    // Split the input string on "->", allowing for extra whitespace.
+    // Divise la chaîne d'entrée sur "->", en permettant des espaces supplémentaires.
     return input.split(/\s*->\s*/);
 
 }
 
 /**
- * Checks for the first term of the period in a 
- * sequence of played cards.
+ * Vérifie le premier terme de la période dans une 
+ * séquence de cartes jouées.
 **/
 function premierePeriodeCheck(input, dev = false) {
   if (input.length === 0) {
@@ -295,13 +294,13 @@ function premierePeriodeCheck(input, dev = false) {
     }
   }
   console.log(`P = ${longueurP}`);
-  //return boucleDict;
+  //retourner boucleDict;
 }
 
 /**
- * For a given N, checks for maxCheck
- * number of played sets and logs the
- * first repeated period within each one.
+ * Pour un N donné, vérifie un nombre maxCheck
+ * de séries jouées et enregistre la
+ * première période répétée dans chacune.
  */
 function periodesCheckN(N, maxCheck = 5) {
   let playedSets = new Set();
